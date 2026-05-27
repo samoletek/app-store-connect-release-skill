@@ -52,6 +52,14 @@ ASC_API_KEY_PATH=tooling/asc/secrets/AuthKey_ABC1234DEF.p8
 ASC_APP_APPLE_ID=1234567890
 ```
 
+## Translation Workflow
+
+Start from one canonical source locale, usually the App Store Connect primary locale. If the app card already has text, pull it first instead of recreating it from memory.
+
+Codex generates or revises the localized Markdown files. The CLI validates, diffs, pulls, and pushes; it does not translate by itself.
+
+Localization target: native-quality App Store copy for each target language and market. Do not use literal translation. Each locale should read like local marketing copy, not machine-translated text. Without a human native-speaker review, treat the result as LLM-localized draft copy.
+
 ## Existing App Card Flow
 
 If the App Store Connect card already has manual metadata, pull it before editing:

@@ -12,11 +12,12 @@ This skill is intentionally narrower than a full App Store Connect API playbook.
 ## Core Workflow
 
 1. Inspect the app context and the current App Store Connect state before writing.
-2. Prepare localized release texts in Markdown files under `release/app-store/locales/`.
-3. Validate every locale locally before touching ASC.
-4. Show the user a compact locale/field summary and a dry-run API diff.
-5. Apply only after explicit approval and `--confirm <APP_APPLE_ID>`.
-6. Pull back from ASC after apply if you need an audit snapshot.
+2. Establish one canonical source locale, usually the primary locale already in App Store Connect.
+3. Prepare localized release texts in Markdown files under `release/app-store/locales/`.
+4. Validate every locale locally before touching ASC.
+5. Show the user a compact locale/field summary and a dry-run API diff.
+6. Apply only after explicit approval and `--confirm <APP_APPLE_ID>`.
+7. Pull back from ASC after apply if you need an audit snapshot.
 
 Use the bundled CLI at `scripts/asc_release.py` for deterministic work:
 
@@ -114,7 +115,7 @@ Important limits:
 | `keywords` | 100 UTF-8 bytes |
 | URLs | 255 characters |
 
-Do not copy the older common mistake of validating keywords as 100 characters. Apple documents the keywords limit as bytes. A 100-character Japanese keyword list can be far over the limit.
+Do not copy the older common mistake of validating keywords as 100 characters. Apple documents the keywords limit as bytes. A 100-character non-Latin keyword list can be far over the limit.
 
 Required for a complete release locale: `name`, `description`, `keywords`, and `supportUrl`. `whatsNew` is not available for the first app version, but is required for version updates.
 
@@ -139,12 +140,14 @@ Batch pushes are acceptable for routine updates after the workflow has been prov
 
 Read `references/copy-guidelines.md` before generating or translating metadata. The short version:
 
-- Translate descriptions naturally, not literally.
+- Produce native-quality localized copy for each target language, not literal translation.
+- Rewrite cramped fields such as `subtitle`, `promotionalText`, and `keywords` for the local market instead of preserving source sentence structure.
 - Generate keywords as local ASO search terms, not as direct translations.
 - Do not duplicate app name or company name in keywords.
 - Do not use competitor names.
-- Keep App Store copy professional even when the game is playful.
-- Mark machine-generated high-value market copy for human review before production.
+- Avoid awkward, machine-translated, or meme-like phrasing in every locale.
+- Keep App Store copy professional even when the app or game is playful.
+- Say clearly when a locale is LLM-localized draft copy and recommend native-speaker review before production for important markets.
 
 ## API Notes
 

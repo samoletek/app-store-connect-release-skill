@@ -2,6 +2,14 @@
 
 Use this reference before drafting, translating, or reviewing localized App Store release copy.
 
+## Native-Quality Rule
+
+Generate localized marketing copy as if it were written directly for that language and market. Do not preserve source-language syntax, joke structure, idioms, punctuation habits, or paragraph rhythm when they sound unnatural in the target language.
+
+The CLI validates and pushes text; it does not translate. Codex should create or revise the Markdown locale files, then the CLI validates and applies them.
+
+Treat "native" as a quality target, not a certification. If there is no human native-speaker review, say that the copy is LLM-localized draft copy. For high-value markets, recommend native review before production.
+
 ## Per-Field Rules
 
 `name`
@@ -13,7 +21,7 @@ Use this reference before drafting, translating, or reviewing localized App Stor
 `subtitle`
 
 - Treat as a localized positioning line, not a literal translation.
-- Fit 30 characters. German, Russian, Polish, Finnish, and similar languages usually need compression.
+- Fit 30 characters. If the target language expands relative to the source, compress the message instead of forcing an awkward literal translation.
 
 `promotionalText`
 
@@ -53,6 +61,7 @@ URLs
 
 - Use formal, professional language unless the user explicitly wants a casual market voice.
 - Adapt idioms, cultural references, examples, measurements, and date formats.
+- Rephrase each field independently if the original structure sounds awkward in the target language.
 - For high-value markets, recommend native review before production apply.
 - Do not push machine-generated copy to production when the locale has a `$comment` or note marking it as placeholder.
 

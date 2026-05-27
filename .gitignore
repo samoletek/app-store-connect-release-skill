@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+.env
+*.p8
+.venv/
+.venv-asc/
+release/

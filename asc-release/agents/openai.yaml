@@ -1,0 +1,4 @@
+interface:
+  display_name: "ASC Release"
+  short_description: "Prepare and push App Store release metadata"
+  default_prompt: "Use $asc-release to prepare localized App Store release metadata and push it safely with App Store Connect API."

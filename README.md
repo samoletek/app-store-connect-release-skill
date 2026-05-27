@@ -1,8 +1,8 @@
 # ASC Release Skill
 
-Codex skill for preparing localized App Store release metadata in Markdown and pushing it safely to App Store Connect through the App Store Connect API.
+Codex skill for preparing localized App Store release metadata in Markdown and pushing it to App Store Connect through the App Store Connect API.
 
-The skill is focused on one job: replace repetitive per-locale App Store Connect form editing for release drafts. It handles app name, subtitle, promotional text, description, keywords, What's New, support URL, marketing URL, and privacy URLs across supported ASC locales.
+Scope: app name, subtitle, promotional text, description, keywords, What's New, support URL, marketing URL, privacy policy URL, and privacy choices URL across ASC locales.
 
 ## What It Contains
 
@@ -10,22 +10,33 @@ The skill is focused on one job: replace repetitive per-locale App Store Connect
 - `asc-release/scripts/asc_release.py` - CLI for Markdown templates, validation, pull, dry-run, and apply.
 - `asc-release/references/` - Apple API notes, copy guidelines, and release checklist.
 
-## Install
-
-Clone or install this repository as a Codex skill:
+## Install In Codex
 
 ```bash
-git clone https://github.com/samoletek/app-store-connect-release-skill.git
+mkdir -p ~/.codex/skills
+git clone https://github.com/samoletek/app-store-connect-release-skill.git /tmp/app-store-connect-release-skill
+rm -rf ~/.codex/skills/asc-release
+cp -R /tmp/app-store-connect-release-skill/asc-release ~/.codex/skills/asc-release
 ```
 
-Then copy or symlink `asc-release` into your Codex skills directory if your client does not install skills directly from GitHub.
+Restart Codex after installing, then invoke:
+
+```text
+Use $asc-release to prepare App Store release metadata for my app.
+```
 
 ## CLI Quick Start
+
+Install dependencies in the target app repo:
 
 ```bash
 python3 -m venv .venv-asc
 .venv-asc/bin/pip install -r asc-release/scripts/requirements.txt
+```
 
+Create Markdown locale files:
+
+```bash
 .venv-asc/bin/python asc-release/scripts/asc_release.py init --out release/app-store --locales en-US,ru,ja
 .venv-asc/bin/python asc-release/scripts/asc_release.py validate --source release/app-store/locales
 .venv-asc/bin/python asc-release/scripts/asc_release.py push --source release/app-store/locales
@@ -41,13 +52,30 @@ ASC_API_KEY_PATH=tooling/asc/secrets/AuthKey_ABC1234DEF.p8
 ASC_APP_APPLE_ID=1234567890
 ```
 
+## Existing App Card Flow
+
+If the App Store Connect card already has manual metadata, pull it before editing:
+
+```bash
+.venv-asc/bin/python asc-release/scripts/asc_release.py pull --out release/app-store/current --write
+cp -R release/app-store/current release/app-store/locales
+.venv-asc/bin/python asc-release/scripts/asc_release.py validate --source release/app-store/locales
+.venv-asc/bin/python asc-release/scripts/asc_release.py push --source release/app-store/locales
+```
+
+Apply only after reviewing the dry-run diff:
+
+```bash
+.venv-asc/bin/python asc-release/scripts/asc_release.py push --source release/app-store/locales --apply --confirm 1234567890
+```
+
 ## Safety Defaults
 
 - Dry-run is the default.
 - Apply requires `--apply --confirm <numeric App Apple ID>`.
 - Existing App Store Connect metadata can be pulled before applying changes.
 - Keywords are validated as 100 UTF-8 bytes, matching Apple documentation.
-- The skill does not handle screenshots, builds, privacy nutrition labels, age ratings, IAP, or final review submission.
+- This skill does not handle screenshots, builds, privacy nutrition labels, age ratings, IAP, or final review submission.
 
 ## License
 

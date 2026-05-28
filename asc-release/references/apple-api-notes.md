@@ -61,7 +61,7 @@ For iOS release metadata:
 - Subtitle: 30 characters.
 - Promotional text: 170 characters.
 - Description: 4000 characters, plain text, no HTML.
-- Keywords: 100 bytes. Do not validate this as characters.
+- Keywords: 100 characters, matching App Store Connect UI. Do not validate this as UTF-8 bytes. Apple's help text may still mention bytes; this skill follows the UI counter used during metadata entry.
 - What's New: 4000 characters, unavailable for the first version and required for updates.
 - Support URL: required and localizable.
 - Marketing URL: optional and localizable.

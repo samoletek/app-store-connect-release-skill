@@ -39,11 +39,11 @@ Treat "native" as a quality target, not a certification. If there is no human na
 `keywords`
 
 - Build local ASO search terms, not direct translations.
-- Fit 100 UTF-8 bytes, not 100 characters.
+- Fit 100 characters.
 - Comma-separate terms.
 - Do not duplicate app name or company name.
 - Do not include competitor names.
-- Avoid spaces after commas unless a phrase needs an internal space; spaces consume bytes.
+- Avoid spaces after commas unless a phrase needs an internal space; spaces consume characters.
 - If no real ASO data is available, label the list as best-effort and recommend native/ASO review before production.
 
 `whatsNew`
@@ -70,7 +70,7 @@ URLs
 Before applying, show a table like this:
 
 ```text
-locale  name  subtitle  promo  description  keywords(bytes)  whatsNew
+locale  name  subtitle  promo  description  keywords(chars)  whatsNew
 en-US   12/30 24/30     91/170 1340/4000    84/100           180/4000
 ja      8/30  14/30     52/170 840/4000     96/100           78/4000
 ```

@@ -112,10 +112,10 @@ Important limits:
 | `promotionalText` | 170 characters |
 | `description` | 4000 characters |
 | `whatsNew` | 4000 characters |
-| `keywords` | 100 UTF-8 bytes |
+| `keywords` | 100 characters |
 | URLs | 255 characters |
 
-Do not copy the older common mistake of validating keywords as 100 characters. Apple documents the keywords limit as bytes. A 100-character non-Latin keyword list can be far over the limit.
+Validate keywords as the App Store Connect UI presents them: 100 characters. Do not use UTF-8 byte length for this field.
 
 Required for a complete release locale: `name`, `description`, `keywords`, and `supportUrl`. `whatsNew` is not available for the first app version, but is required for version updates.
 

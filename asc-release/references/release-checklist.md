@@ -31,7 +31,7 @@ This checklist prevents overclaiming. The skill handles localized text metadata 
 - The user has reviewed generated copy in Markdown.
 - The user has reviewed the dry-run diff.
 - New locales have both required fields: `name`, `description`, `keywords`, and `supportUrl`.
-- `keywords` are under 100 UTF-8 bytes.
+- `keywords` are under 100 characters.
 - `whatsNew` is omitted or expected to be skipped for the first version.
 - Production apply uses typed confirmation with the numeric App Apple ID.
 

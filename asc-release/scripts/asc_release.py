@@ -509,12 +509,12 @@ def validate_metadata(
             elif field == "whatsNew" and len(value) > 4000:
                 issues.append(Issue("error", locale, field, f"{len(value)}/4000 characters"))
             elif field == "keywords":
-                keyword_bytes = len(value.encode("utf-8"))
-                if keyword_bytes > 100:
-                    issues.append(Issue("error", locale, field, f"{keyword_bytes}/100 UTF-8 bytes"))
+                keyword_chars = len(value)
+                if keyword_chars > 100:
+                    issues.append(Issue("error", locale, field, f"{keyword_chars}/100 characters"))
                 if ", " in value:
                     issues.append(
-                        Issue("warning", locale, field, "space after comma wastes keyword bytes")
+                        Issue("warning", locale, field, "space after comma wastes keyword characters")
                     )
                 if value.startswith(",") or value.endswith(","):
                     issues.append(Issue("warning", locale, field, "leading/trailing comma"))
@@ -544,7 +544,7 @@ def print_issues(issues: list[Issue]) -> None:
 
 
 def summarize(metadata: dict[str, dict[str, str]]) -> None:
-    print("locale  name  subtitle  promo  description  keywords(bytes)  whatsNew")
+    print("locale  name  subtitle  promo  description  keywords(chars)  whatsNew")
     for locale, fields in sorted(metadata.items()):
         row = [
             locale,
@@ -552,7 +552,7 @@ def summarize(metadata: dict[str, dict[str, str]]) -> None:
             ratio(fields.get("subtitle"), 30),
             ratio(fields.get("promotionalText"), 170),
             ratio(fields.get("description"), 4000),
-            bytes_ratio(fields.get("keywords"), 100),
+            ratio(fields.get("keywords"), 100),
             ratio(fields.get("whatsNew"), 4000),
         ]
         print("  ".join(row))
@@ -562,12 +562,6 @@ def ratio(value: str | None, limit: int) -> str:
     if not value:
         return "-"
     return f"{len(value)}/{limit}"
-
-
-def bytes_ratio(value: str | None, limit: int) -> str:
-    if not value:
-        return "-"
-    return f"{len(value.encode('utf-8'))}/{limit}"
 
 
 def md_for_locale(locale: str, fields: dict[str, str]) -> str:

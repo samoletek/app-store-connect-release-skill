@@ -82,7 +82,7 @@ Apply only after reviewing the dry-run diff:
 - Dry-run is the default.
 - Apply requires `--apply --confirm <numeric App Apple ID>`.
 - Existing App Store Connect metadata can be pulled before applying changes.
-- Keywords are validated as 100 UTF-8 bytes, matching Apple documentation.
+- Keywords are validated as 100 characters, matching the App Store Connect UI counter.
 - This skill does not handle screenshots, builds, privacy nutrition labels, age ratings, IAP, or final review submission.
 
 ## License
